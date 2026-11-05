@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StayNest PG Management</title>
+    <meta name="theme-color" content="#123c63" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" id="sidebar">
+        <div class="brand">
+          <div class="brand-mark">SN</div>
+          <div><strong>StayNest</strong><span>PG Management</span></div>
+        </div>
+
+        <nav class="nav-list" aria-label="Main navigation">
+          <button class="nav-item active" data-section="overview"><span class="nav-icon">⌂</span><span>Overview</span></button>
+          <button class="nav-item" data-section="rooms"><span class="nav-icon">▦</span><span>Rooms</span></button>
+          <button class="nav-item" data-section="tenants"><span class="nav-icon">♙</span><span>Tenants</span></button>
+          <button class="nav-item" data-section="payments"><span class="nav-icon">₹</span><span>Payments</span></button>
+        </nav>
+
+        <div class="property-card">
+          <span class="property-label">PROPERTY</span>
+          <strong>Green Villa PG</strong>
+          <span>24 rooms · 3 floors</span>
+        </div>
+
+        <button class="profile-row" type="button">
+          <div class="avatar">AK</div>
+          <div><strong>Arjun Kumar</strong><span>Administrator</span></div>
+          <span class="profile-more">•••</span>
+        </button>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <div class="mobile-brand">
+            <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
+            <div><strong>StayNest</strong><span>Green Villa PG</span></div>
+          </div>
+          <div class="topbar-search"><span>⌕</span><input id="globalSearch" type="search" placeholder="Search room or tenant..." /></div>
+          <div class="topbar-actions">
+            <button class="icon-btn" aria-label="Notifications">♢</button>
+            <button class="primary-btn" id="addRoomBtn">＋ <span>Add room</span></button>
+          </div>
+        </header>
+
+        <div class="page-content">
+          <section class="page-heading">
+            <div><p class="eyebrow">MONDAY, 5 NOVEMBER</p><h1>Property overview</h1></div>
+            <div class="month-picker"><button aria-label="Previous month">‹</button><strong>November 2026</strong><button aria-label="Next month">›</button></div>
+          </section>
+
+          <section class="metrics-grid" aria-label="Property summary">
+            <article class="metric-card"><div class="metric-icon occupied">⌂</div><div><span>Total rooms</span><strong>24</strong><small>18 occupied</small></div></article>
+            <article class="metric-card"><div class="metric-icon tenants">♙</div><div><span>Active tenants</span><strong>31</strong><small>+3 this month</small></div></article>
+            <article class="metric-card"><div class="metric-icon collection">₹</div><div><span>Collected</span><strong>₹1,24,500</strong><small>of ₹1,48,000</small></div></article>
+            <article class="metric-card"><div class="metric-icon due">!</div><div><span>Pending</span><strong>₹23,500</strong><small>7 payments due</small></div></article>
+          </section>
+
+          <section class="dashboard-grid">
+            <article class="panel rooms-panel">
+              <div class="panel-heading"><div><p class="eyebrow">OCCUPANCY</p><h2>Rooms & flats</h2></div><button class="secondary-btn" id="viewRoomsBtn">View all</button></div>
+              <div class="room-toolbar">
+                <div class="segmented" id="roomFilters"><button class="active" data-filter="all">All <span>24</span></button><button data-filter="occupied">Occupied <span>18</span></button><button data-filter="vacant">Vacant <span>6</span></button></div>
+              </div>
+              <div class="room-grid" id="roomGrid"></div>
+            </article>
+
+            <aside class="right-column">
+              <article class="panel rent-panel">
+                <div class="panel-heading"><div><p class="eyebrow">THIS MONTH</p><h2>Rent collection</h2></div><button class="icon-btn small" aria-label="More options">•••</button></div>
+                <div class="collection-summary"><div class="progress-ring"><span>84%</span></div><div><strong>₹1,24,500</strong><span>Collected</span><small>Target ₹1,48,000</small></div></div>
+                <div class="collection-bar"><span></span></div>
+                <div class="collection-stats"><div><span>Paid</span><strong class="paid">24</strong></div><div><span>Pending</span><strong class="pending">7</strong></div><div><span>Overdue</span><strong class="overdue">3</strong></div></div>
+              </article>
+
+              <article class="panel activity-panel">
+                <div class="panel-heading"><div><p class="eyebrow">RECENT</p><h2>Payment activity</h2></div><button class="text-btn" id="viewPaymentsBtn">See all</button></div>
+                <div class="activity-list" id="activityList"></div>
+              </article>
+            </aside>
+          </section>
+
+          <section class="panel tenant-panel">
+            <div class="panel-heading"><div><p class="eyebrow">RESIDENTS</p><h2>Tenants</h2></div><button class="secondary-btn" id="addTenantBtn">＋ Add tenant</button></div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Tenant</th><th>Room</th><th>Contact</th><th>Move in</th><th>Monthly rent</th><th>Status</th><th></th></tr></thead>
+                <tbody id="tenantTable"></tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <div class="modal-backdrop" id="modalBackdrop" hidden>
+      <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-heading"><div><p class="eyebrow" id="modalKicker">NEW RECORD</p><h2 id="modalTitle">Add room</h2></div><button class="icon-btn" id="closeModal" aria-label="Close">×</button></div>
+        <form id="recordForm"></form>
+      </section>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
